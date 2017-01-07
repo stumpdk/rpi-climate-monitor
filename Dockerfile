@@ -1,6 +1,6 @@
-#FROM ubuntu:latest
+FROM ubuntu:latest
 # use armf ubuntu ready for raspberry pi
-FROM armhf/ubuntu
+#FROM armhf/ubuntu
 
 
 # install mysql server and libraries, apache2, php and ssh server
