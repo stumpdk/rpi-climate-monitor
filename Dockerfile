@@ -16,7 +16,7 @@ RUN apk add mysql-dev
 #RUN echo "root:root" | chpasswd
 #RUN sed 's/#PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config > /etc/ssh/sshd_config
 
-RUN git clone https://github.com/WiringPi/WiringPi.git && cd WiringPi && sed -i '/sudo=${WIRINGPI_SUDO-sudo}/c\sudo=' ./build && ./build
+RUN git clone https://github.com/WiringPi/WiringPi.git && cd WiringPi && sed -i '/sudo=${WIRINGPI_SUDO-sudo}/c\sudo=' ./build && sed -i '/PREFIX?=/local/PREFIX?=' ./build && ./build
 
 # copy source code
 ADD ClimateSurvelliance/src /tmp/sourcecode
