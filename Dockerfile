@@ -1,17 +1,17 @@
 #FROM ubuntu:latest
 # use armf ubuntu ready for raspberry pi
-FROM armhf/ubuntu
+FROM armhf/alpine
 
 
 # install mysql server and libraries, apache2, php and ssh server
-RUN apt-get -y update && \
-	export DEBIAN_FRONTEND="noninteractive" && apt-get -y install mysql-server
-RUN apt-get -y install apache2 php7.0 mysql-client vsftpd
-RUN apt-get -y install openssh-server
-RUN apt-get -y install build-essential
-RUN apt-get -y install git
+RUN apk update && \
+	export DEBIAN_FRONTEND="noninteractive" && apk add mysql-server
+RUN apk add apache2 php7.0 mysql-client vsftpd
+RUN apk add openssh-server
+RUN apk add g++ && apk add gcc && apk add make
+RUN apk add git
 # install mysql dependencies used when compiling source using mysql libraries
-RUN apt-get -y install libmysqlclient-dev
+RUN apk add libmysqlclient-dev
 
 #RUN echo "root:root" | chpasswd
 #RUN sed 's/#PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config > /etc/ssh/sshd_config
