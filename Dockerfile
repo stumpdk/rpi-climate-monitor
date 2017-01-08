@@ -5,13 +5,13 @@ FROM armhf/alpine
 
 # install mysql server and libraries, apache2, php and ssh server
 RUN apk update && \
-	export DEBIAN_FRONTEND="noninteractive" && apk add mysql-server
-RUN apk add apache2 php7.0 mysql-client vsftpd
-RUN apk add openssh-server
+	export DEBIAN_FRONTEND="noninteractive" && apk add mysql
+RUN apk add apache2 php5-apache2 mysql-client vsftpd
+RUN apk add openssh
 RUN apk add g++ && apk add gcc && apk add make
 RUN apk add git
 # install mysql dependencies used when compiling source using mysql libraries
-RUN apk add libmysqlclient-dev
+RUN apk add mysql-dev
 
 #RUN echo "root:root" | chpasswd
 #RUN sed 's/#PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config > /etc/ssh/sshd_config
