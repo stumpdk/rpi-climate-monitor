@@ -17,7 +17,7 @@ RUN /usr/bin/mysql_install_db --user=mysql
 
 RUN apk add openssh
 RUN apk add g++ && apk add gcc && apk add make
-RUN apk add gi
+RUN apk add git
 RUN apk add sudo
 RUN apk add linux-headers
 
