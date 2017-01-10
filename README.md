@@ -10,12 +10,8 @@ Install Docker:
 Clone this repository:
 ```git clone https://github.com/stumpdk/rpi-climate-monitor```
 
-
-Enter directory:
-```cd rpi-climate-monitor```
-
 Build the Docker image:
-```sudo docker build -t rpi-climate-monitor .```
+```cd rpi-climate-monitor && sudo docker build -t rpi-climate-monitor .```
 
 Start the container:
 ```sudo docker run -d --name rpi-climate-monitor --privileged -p 8000:80 -p 2222:22 rpi-climate-monitor-container```
