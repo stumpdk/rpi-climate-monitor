@@ -19,7 +19,11 @@ RUN apk add linux-headers
 #RUN echo "root:root" | chpasswd
 #RUN sed 's/#PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config > /etc/ssh/sshd_config
 
-RUN git clone https://github.com/WiringPi/WiringPi.git && cd WiringPi && sed -i '/sudo=${WIRINGPI_SUDO-sudo}/c\sudo=' ./build  && sed -i '/PREFIX?=\/local/c\PREFIX?=' ./wiringPi/Makefile && sed -i '/LDCONFIG?=ldconfig/c\LDCONFIG?=ldconfig /' ./wiringPi/Makefile && ./build
+RUN git clone https://github.com/WiringPi/WiringPi.git && \
+	cd WiringPi && sed -i '/sudo=${WIRINGPI_SUDO-sudo}/c\sudo=' ./build  && \
+	sed -i '/PREFIX?=\/local/c\PREFIX?=' ./wiringPi/Makefile && \
+	sed -i '/LDCONFIG?=ldconfig/c\LDCONFIG?=ldconfig /' ./wiringPi/Makefile && \
+	./build
 
 # copy source code
 ADD ClimateSurvelliance/src /tmp/sourcecode
