@@ -14,4 +14,4 @@ Build the Docker image:
 ```cd rpi-climate-monitor && sudo docker build -t rpi-climate-monitor .```
 
 Start the container:
-```sudo docker run -d --name rpi-climate-monitor --privileged -p 8000:80 -p 2222:22 rpi-climate-monitor-container```
+```sudo docker run -d --name rpi-climate-monitor --device /dev/ttyAMA0:/dev/ttyAMA0 --device /dev/mem:/dev/mem -p 8000:80 -p 2222:22 rpi-climate-monitor-container```
