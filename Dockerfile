@@ -21,11 +21,13 @@ RUN apk add git
 RUN apk add sudo
 RUN apk add linux-headers
 
-RUN git clone https://github.com/WiringPi/WiringPi.git && \
-	cd WiringPi && sed -i '/sudo=${WIRINGPI_SUDO-sudo}/c\sudo=' ./build  && \
-	sed -i '/PREFIX?=\/local/c\PREFIX?=' ./wiringPi/Makefile && \
-	sed -i '/LDCONFIG?=ldconfig/c\LDCONFIG?=ldconfig /' ./wiringPi/Makefile && \
-	./build
+#RUN git clone https://github.com/WiringPi/WiringPi.git && \
+#	cd WiringPi && sed -i '/sudo=${WIRINGPI_SUDO-sudo}/c\sudo=' ./build  && \
+#	sed -i '/PREFIX?=\/local/c\PREFIX?=' ./wiringPi/Makefile && \
+#	sed -i '/LDCONFIG?=ldconfig/c\LDCONFIG?=ldconfig /' ./wiringPi/Makefile && \
+#	./build
+
+run apk add wiringpi
 
 # copy source code
 ADD ClimateSurvelliance/src /tmp/sourcecode
