@@ -7,7 +7,7 @@ RUN apk update && \
 	export DEBIAN_FRONTEND="noninteractive" && \
 	apk add mysql
 
-RUN apk add apache2 php5-apache2 mysql-client vsftpd php-mysql php-mysqli
+RUN apk add apache2 php5-apache2 mysql-client vsftpd #php-mysql php-mysqli
 
 # install mysql dependencies used when compiling source using mysql libraries
 RUN apk add mysql-dev
