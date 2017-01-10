@@ -6,17 +6,20 @@ FROM armhf/alpine
 # install mysql server and libraries, apache2, php and ssh server
 RUN apk update && \
 	export DEBIAN_FRONTEND="noninteractive" && apk add mysql
-RUN apk add apache2 php5-apache2 mysql-client vsftpd
+RUN apk add apache2 php5-apache2 mysql-client vsftpd php-mysql php-mysqli
+RUN /usr/bin/mysql_install_db --user=mysql
 RUN apk add openssh
 RUN apk add g++ && apk add gcc && apk add make
 RUN apk add git
 # install mysql dependencies used when compiling source using mysql libraries
 RUN apk add mysql-dev
+RUN apk add sudo
+RUN apk add linux-headers
 
 #RUN echo "root:root" | chpasswd
 #RUN sed 's/#PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config > /etc/ssh/sshd_config
 
-RUN git clone https://github.com/WiringPi/WiringPi.git && cd WiringPi && sed -i '/sudo=${WIRINGPI_SUDO-sudo}/c\sudo=' ./build && sed -i '/PREFIX?=/local/PREFIX?=' ./build && ./build
+RUN git clone https://github.com/WiringPi/WiringPi.git && cd WiringPi && sed -i '/sudo=${WIRINGPI_SUDO-sudo}/c\sudo=' ./build  && sed -i '/PREFIX?=\/local/c\PREFIX?=' ./wiringPi/Makefile && sed -i '/LDCONFIG?=ldconfig/c\LDCONFIG?=ldconfig /' ./wiringPi/Makefile && ./build
 
 # copy source code
 ADD ClimateSurvelliance/src /tmp/sourcecode
@@ -34,6 +37,8 @@ COPY ./init/start.sh /tmp/start.sh
 COPY ./init/init.sql /tmp/init.sql
 RUN chmod +x /tmp/start.sh
 RUN chmod +x /tmp/init.sql
+
+VOLUME /var/lib/mysql
 
 # enable http and SSH access	
 EXPOSE 80
