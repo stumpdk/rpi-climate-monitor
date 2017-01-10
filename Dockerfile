@@ -21,9 +21,6 @@ RUN apk add git
 RUN apk add sudo
 RUN apk add linux-headers
 
-#RUN echo "root:root" | chpasswd
-#RUN sed 's/#PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config > /etc/ssh/sshd_config
-
 RUN git clone https://github.com/WiringPi/WiringPi.git && \
 	cd WiringPi && sed -i '/sudo=${WIRINGPI_SUDO-sudo}/c\sudo=' ./build  && \
 	sed -i '/PREFIX?=\/local/c\PREFIX?=' ./wiringPi/Makefile && \
@@ -32,7 +29,6 @@ RUN git clone https://github.com/WiringPi/WiringPi.git && \
 
 # copy source code
 ADD ClimateSurvelliance/src /tmp/sourcecode
-#RUN mysql_config --cflags
 RUN make -f /tmp/sourcecode/makefile
 #RUN echo "Running compiled program" && /tmp/performMeasurement
 
@@ -49,9 +45,8 @@ RUN chmod +x /tmp/init.sql
 
 VOLUME /var/lib/mysql
 
-# enable http and SSH access	
+# enable http access	
 EXPOSE 80
-EXPOSE 22 
 
 ENTRYPOINT ["/bin/sh", "/tmp/start.sh"]
 #ENTRYPOINT ["top", "-b"]
