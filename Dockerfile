@@ -1,7 +1,7 @@
 #FROM ubuntu:latest
 # use armf ubuntu ready for raspberry pi
-#FROM armhf/alpine
-FROM multiarch/alpine:armhf-edge
+FROM armhf/alpine:edge
+#FROM multiarch/alpine:armhf-edge
 
 # install mysql server and libraries, apache2, php and ssh server
 RUN apk update && \
