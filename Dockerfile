@@ -11,15 +11,12 @@ RUN apk update && \
 RUN apk add apache2 php5-apache2 mysql-client vsftpd
 #php-mysql php-mysqli
 
->>>>>>> a46e3c71ed8624ead587b8e42e32d448f3ffd237
+
 # install mysql dependencies used when compiling source using mysql libraries
 RUN apk add mysql-dev
 
 RUN /usr/bin/mysql_install_db --user=mysql
 
-<<<<<<< HEAD
-RUN git clone https://github.com/WiringPi/WiringPi.git && cd WiringPi && sed -i '/sudo=${WIRINGPI_SUDO-sudo}/c\sudo=' ./build && sed -i '/PREFIX?=/local/PREFIX?=' ./build && ./build
-=======
 RUN apk add openssh
 RUN apk add g++ && apk add gcc && apk add make
 RUN apk add git
