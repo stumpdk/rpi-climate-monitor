@@ -33,7 +33,6 @@ RUN apk add linux-headers
 #	./build
 
 run apk add wiringpi
->>>>>>> a46e3c71ed8624ead587b8e42e32d448f3ffd237
 
 # copy source code
 ADD ClimateSurvelliance/src /tmp/sourcecode
