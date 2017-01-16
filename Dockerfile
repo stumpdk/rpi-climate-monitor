@@ -1,26 +1,42 @@
 #FROM ubuntu:latest
 # use armf ubuntu ready for raspberry pi
-FROM armhf/alpine
-
+FROM armhf/alpine:edge
+#FROM multiarch/alpine:armhf-edge
 
 # install mysql server and libraries, apache2, php and ssh server
 RUN apk update && \
-	export DEBIAN_FRONTEND="noninteractive" && apk add mysql
+	export DEBIAN_FRONTEND="noninteractive" && \
+	apk add mysql
+
 RUN apk add apache2 php5-apache2 mysql-client vsftpd
-RUN apk add openssh
-RUN apk add g++ && apk add gcc && apk add make
-RUN apk add git
+#php-mysql php-mysqli
+
+>>>>>>> a46e3c71ed8624ead587b8e42e32d448f3ffd237
 # install mysql dependencies used when compiling source using mysql libraries
 RUN apk add mysql-dev
 
-#RUN echo "root:root" | chpasswd
-#RUN sed 's/#PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config > /etc/ssh/sshd_config
+RUN /usr/bin/mysql_install_db --user=mysql
 
+<<<<<<< HEAD
 RUN git clone https://github.com/WiringPi/WiringPi.git && cd WiringPi && sed -i '/sudo=${WIRINGPI_SUDO-sudo}/c\sudo=' ./build && sed -i '/PREFIX?=/local/PREFIX?=' ./build && ./build
+=======
+RUN apk add openssh
+RUN apk add g++ && apk add gcc && apk add make
+RUN apk add git
+RUN apk add sudo
+RUN apk add linux-headers
+
+#RUN git clone https://github.com/WiringPi/WiringPi.git && \
+#	cd WiringPi && sed -i '/sudo=${WIRINGPI_SUDO-sudo}/c\sudo=' ./build  && \
+#	sed -i '/PREFIX?=\/local/c\PREFIX?=' ./wiringPi/Makefile && \
+#	sed -i '/LDCONFIG?=ldconfig/c\LDCONFIG?=ldconfig /' ./wiringPi/Makefile && \
+#	./build
+
+run apk add wiringpi
+>>>>>>> a46e3c71ed8624ead587b8e42e32d448f3ffd237
 
 # copy source code
 ADD ClimateSurvelliance/src /tmp/sourcecode
-#RUN mysql_config --cflags
 RUN make -f /tmp/sourcecode/makefile
 #RUN echo "Running compiled program" && /tmp/performMeasurement
 
@@ -35,9 +51,10 @@ COPY ./init/init.sql /tmp/init.sql
 RUN chmod +x /tmp/start.sh
 RUN chmod +x /tmp/init.sql
 
-# enable http and SSH access	
+VOLUME /var/lib/mysql
+
+# enable http access	
 EXPOSE 80
-EXPOSE 22 
 
 ENTRYPOINT ["/bin/sh", "/tmp/start.sh"]
 #ENTRYPOINT ["top", "-b"]
