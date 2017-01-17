@@ -15,3 +15,4 @@ Build the Docker image:
 
 Start the container:
 ```sudo docker run -d --name rpi-climate-monitor -p 8000:80 -p 2222:22 rpi-climate-monitor-container```
+```sudo docker run -d --entrypoint=/bin/bash --name rpi-climate-monitor -p 8000:80 -p 2222:22 rpi-climate-monitor-container resin/rpi-raspbian:jessie```
