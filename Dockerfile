@@ -1,5 +1,5 @@
 # Run Raspberry Pi image on Raspberry Pi...
-FROM resin-rpi-raspbian
+FROM resin/rpi-raspbian
 
 #
 # This should be done by a separate script if user is not using Docker
