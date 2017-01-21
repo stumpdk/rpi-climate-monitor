@@ -13,20 +13,20 @@ RUN git clone https://github.com/WiringPi/WiringPi.git && cd WiringPi && ./build
 #
 # Clones the rpi-climate-monitor software and builds it
 #
-RUN git clone https://github.com/stumpdk/rpi-climate-monitor ~/rpi-climate-monitor && cd ~/rpi-climate-monitor && git checkout code-and-server-separated && ./build
-
-#
-# add init script, that initializes database and table
-#
-RUN chmod +x /rpi-climate-monitor/start.sh
+RUN git clone https://github.com/stumpdk/rpi-climate-monitor ~/rpi-climate-monitor && cd ~/rpi-climate-monitor && git checkout code-and-server-separated && cd /src && make
 
 #
 # set cron job that performs the measuring
 #
 crontab ~/rpi-climate-monitor/crontab
 
+#
+# add init script, that initializes database and table
+#
+RUN chmod +x ~/rpi-climate-monitor/start.sh
+
 
 # enable http
 EXPOSE 80
 
-ENTRYPOINT ["/bin/sh", "/tmp/start.sh"]
+ENTRYPOINT ["/bin/sh", "~/rpi-climate-monitor/start.sh"]
