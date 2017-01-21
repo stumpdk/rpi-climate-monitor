@@ -46,7 +46,7 @@ bool runQuery(MYSQL *con, char SQLstring[64])
 
 bool writeLog(char *text)
 {
-	FILE *f = fopen("/var/log/rpi-monitor.log", "w");
+	FILE *f = fopen("/var/log/rpi-climate-monitor.log", "w");
 	if (f == NULL)
 	{
 	    printf("Error opening file!\n");
@@ -66,6 +66,8 @@ int main(void)
 	time_t rawtime;
 	struct tm * timeinfo;
 	char TimeString[64];
+
+	writeLog("started");
 
 	//wiringPiSetupSys();
 

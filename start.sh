@@ -11,5 +11,6 @@ echo 'creating table';
 echo "use Monitoring; create table if not exists TempHumid (ComputerTime TIMESTAMP,Temperature DECIMAL(5,1), Humidity DECIMAL(5,1))"  | mysql -u root;
 
 # Watch mysql error logs
-tail -f /var/log/mysql/error.log;
+#tail -f /var/log/mysql/error.log;
+tail -f /var/log/rpi-climate-monitor.log
 while true; do sleep 2; done;
