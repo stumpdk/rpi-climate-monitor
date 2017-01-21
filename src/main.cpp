@@ -44,6 +44,21 @@ bool runQuery(MYSQL *con, char SQLstring[64])
 	return true;
 }
 
+bool writeLog(char *text)
+{
+	FILE *f = fopen("/var/log/rpi-monitor.log", "w");
+	if (f == NULL)
+	{
+	    printf("Error opening file!\n");
+	    return false;
+	}
+
+	/* print some text */
+	fprintf(f, "%s\n", text);
+
+	return true;
+}
+
 int main(void)
 {
 	static int RHT03_PIN = 7;
@@ -74,10 +89,10 @@ int main(void)
 
 	printf("Time: %s, Temperature: %5.1f, Humidity: %5.1f\n", TimeString, (temp), (rh));
 
-	//Send the information to PHP, which saves the data
+	//Put the data in the log file
+	writeLog(TimeString);
 
 	//Save the information using MySQL
-
 	char SQLstring[64];
 	sprintf(SQLstring, "INSERT INTO TempHumid (ComputerTime, Temperature, Humidity) VALUES(now(),%5.1f,%5.1f)", (temp / 10.0), (rh / 10.0));
 
@@ -85,11 +100,11 @@ int main(void)
 
 	if(con == NULL)
 	{
-		exit(0);
+		return 0;
 	}
 
 	if(!runQuery(con, SQLstring)){
-		exit(0);
+		return 0;
 	}
 
 	return 0;
