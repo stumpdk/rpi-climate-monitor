@@ -21,4 +21,4 @@ Start the container:
 
 Not yet supported. But it should work as above, as long as the dependencies used in the Dockerfile (MySQL and wiringPi among others) are installed manually, before building the monitor executable.
 
-This is done by cloning this repository, entering the src dir and build the file with ```make```
+The build is done by cloning this repository, entering the src dir and build the file with ```make```
