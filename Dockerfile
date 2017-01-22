@@ -23,8 +23,8 @@ RUN git clone https://github.com/stumpdk/rpi-climate-monitor ~/rpi-climate-monit
 #
 # add init script, that initializes database and table
 #
-RUN chmod +x ~/rpi-climate-monitor/start.sh
-RUN ~/rpi-climate-monitor/start.sh
+RUN chmod +x ~/rpi-climate-monitor/start1.sh
+RUN ~/rpi-climate-monitor/start1.sh
 
 # enable http
 EXPOSE 80
