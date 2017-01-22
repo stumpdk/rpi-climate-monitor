@@ -15,7 +15,7 @@ VOLUME /data
 #
 # Clones the rpi-climate-monitor software and builds it
 #
-RUN git clone https://github.com/stumpdk/rpi-climate-monitor /daa/rpi-climate-monitor && cd /data/rpi-climate-monitor && git checkout code-and-server-separated && cd ./src && make
+RUN git clone https://github.com/stumpdk/rpi-climate-monitor /data/rpi-climate-monitor && cd /data/rpi-climate-monitor && git checkout code-and-server-separated && cd ./src && make
 
 #
 # set cron job that performs the measuring
