@@ -27,7 +27,7 @@ RUN git clone https://github.com/stumpdk/rpi-climate-monitor /data/rpi-climate-m
 #
 # ENTRYPOINT that initializes database and table
 #
-RUN "cd /data/rpi-climate-monitor && ls -l"
+RUN cd /data/rpi-climate-monitor && ls -l
 ENTRYPOINT ["/bin/sh", "/data/rpi-climate-monitor/start.sh"]
 
 VOLUME /data
