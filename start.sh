@@ -12,5 +12,6 @@ echo "use Monitoring; create table if not exists TempHumid (ComputerTime TIMESTA
 
 # Watch mysql error logs
 #tail -f /var/log/mysql/error.log;
+touch /var/log/rpi-climate-monitor.log
 tail -f /var/log/rpi-climate-monitor.log
 while true; do sleep 2; done;
