@@ -20,13 +20,12 @@ RUN git clone https://github.com/stumpdk/rpi-climate-monitor ~/rpi-climate-monit
 #
 #crontab ~/rpi-climate-monitor/crontab
 
+#ENTRYPOINT ["~/rpi-climate-monitor/performMeasurement"]
+
 #
-# add init script, that initializes database and table
+# ENTRYPOINT that initializes database and table
 #
-RUN chmod +x ~/rpi-climate-monitor/start1.sh
-RUN ~/rpi-climate-monitor/start1.sh
+ENTRYPOINT ["/bin/sh", "~/rpi-climate-monitor/start.sh"]
 
 # enable http
 EXPOSE 80
-ENTRYPOINT ["~/rpi-climate-monitor/performMeasurement"]
-#ENTRYPOINT ["/bin/sh", "~/rpi-climate-monitor/start.sh"]
