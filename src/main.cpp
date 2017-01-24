@@ -11,9 +11,9 @@
 // update the Property Pages - Build Events - Remote Post-Build Event command 
 // which uses gpio export for setup for wiringPiSetupSys
 
-void databaseError(MYSQL *con)
+void databaseError(MYSQL *con, char[] *SQLstring)
 {
-	fprintf(stderr, "%s\n", mysql_error(con));
+	fprintf(stderr, "%s : %s\n", mysql_error(con), SQLstring);
 	mysql_close(con);
 }
 
@@ -27,7 +27,7 @@ MYSQL* connectToDatabase()
 	MYSQL *con = mysql_init(NULL);
 	
 	if (mysql_real_connect(con, sqlServer, username, password, databaseName, 0, NULL, 0) == NULL){
-		databaseError(con);
+		databaseError(con, "");
 		return NULL;	
 	} 
 
@@ -37,7 +37,7 @@ MYSQL* connectToDatabase()
 bool runQuery(MYSQL *con, char SQLstring[64])
 {
 	if (mysql_query(con, SQLstring)){
-		databaseError(con);
+		databaseError(con, SQLstring);
 		return false;
 	}
 
