@@ -22,8 +22,6 @@ RUN git clone https://github.com/stumpdk/rpi-climate-monitor /data/rpi-climate-m
 #
 #crontab ~/rpi-climate-monitor/crontab
 
-#ENTRYPOINT ["~/rpi-climate-monitor/performMeasurement"]
-
 #
 # ENTRYPOINT that initializes database and table
 #

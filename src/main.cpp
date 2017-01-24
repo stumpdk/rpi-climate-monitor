@@ -46,7 +46,7 @@ bool runQuery(MYSQL *con, char SQLstring[64])
 
 bool writeLog(char *text)
 {
-	FILE *f = fopen("/var/log/rpi-climate-monitor.log", "w");
+	FILE *f = fopen("/data/rpi-climate-monitor.log", "w");
 	if (f == NULL)
 	{
 	    printf("Error opening file!\n");
@@ -96,7 +96,7 @@ int main(void)
 
 	//Save the information using MySQL
 	char SQLstring[64];
-	sprintf(SQLstring, "INSERT INTO TempHumid (ComputerTime, Temperature, Humidity) VALUES(now(),%5.1f,%5.1f)", (temp / 10.0), (rh / 10.0));
+	sprintf(SQLstring, "INSERT INTO TempHumid (`ComputerTime`, `Temperature`, `Humidity`) VALUES(now(),`%5.1f`,`%5.1f`)", (temp / 10.0), (rh / 10.0));
 
 	MYSQL *con = connectToDatabase();
 
