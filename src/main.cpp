@@ -11,7 +11,7 @@
 // update the Property Pages - Build Events - Remote Post-Build Event command 
 // which uses gpio export for setup for wiringPiSetupSys
 
-void databaseError(MYSQL *con, char[] *SQLstring)
+void databaseError(MYSQL *con, char SQLstring[64])
 {
 	fprintf(stderr, "%s : %s\n", mysql_error(con), SQLstring);
 	mysql_close(con);
@@ -69,19 +69,19 @@ int main(void)
 
 	writeLog("started");
 
-	//wiringPiSetupSys();
+	wiringPiSetupSys();
 
-	//piHiPri(55);
+	piHiPri(55);
 
 	//Read temperature and humidity
-	status = true;//= readRHT03(RHT03_PIN, &temp, &rh);
+	readRHT03(RHT03_PIN, &temp, &rh);
 
 	//If no status is returned, 
-	while ((!status))
-	{
-		delay(3000);
-		status = readRHT03(RHT03_PIN, &temp, &rh);
-	}
+	//while ((!status))
+	//{
+//		delay(3000);
+//		status = readRHT03(RHT03_PIN, &temp, &rh);
+//	}
 
 
 	//Get current, local, formatted time
@@ -96,7 +96,7 @@ int main(void)
 
 	//Save the information using MySQL
 	char SQLstring[64];
-	sprintf(SQLstring, "INSERT INTO TempHumid (`ComputerTime`, `Temperature`, `Humidity`) VALUES(now(),`%5.1f`,`%5.1f`)", (temp / 10.0), (rh / 10.0));
+	sprintf(SQLstring, "INSERT INTO TempHumid (`Temperature`, `Humidity`) VALUES('%5.1f','%5.1f')", (temp / 10.0), (rh / 10.0));
 
 	MYSQL *con = connectToDatabase();
 

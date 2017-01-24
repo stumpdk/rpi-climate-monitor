@@ -9,8 +9,10 @@ RUN export DEBIAN_FRONTEND="noninteractive" && apt-get -y install mysql-server
 RUN apt-get -y install apache2 php5 mysql-client vsftpd
 RUN apt-get -y install build-essential && apt-get -y install git && apt-get -y install libmysqlclient-dev
 RUN git clone https://github.com/WiringPi/WiringPi.git && cd WiringPi && ./build
+RUN apt-get install cron
 
 RUN mkdir -p /data
+RUN service mysql stop && sed -i "s,datadir.*=.*,datadir=$new_dir,g" /etc/mysql/my.cnf && service mysql start
 
 #
 # Clones the rpi-climate-monitor software and builds it
@@ -20,12 +22,11 @@ RUN git clone https://github.com/stumpdk/rpi-climate-monitor /data/rpi-climate-m
 #
 # set cron job that performs the measuring
 #
-#crontab ~/rpi-climate-monitor/crontab
+crontab /data/rpi-climate-monitor/crontab
 
 #
 # ENTRYPOINT that initializes database and table
 #
-#RUN cd /data/rpi-climate-monitor && ls -l
 ENTRYPOINT ["/bin/sh", "/data/rpi-climate-monitor/start.sh"]
 
 VOLUME /data
