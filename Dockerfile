@@ -12,7 +12,8 @@ RUN git clone https://github.com/WiringPi/WiringPi.git && cd WiringPi && ./build
 RUN apt-get install cron
 
 RUN mkdir -p /data
-RUN service mysql stop && sed -i "s,datadir.*=.*,datadir=$new_dir,g" /etc/mysql/my.cnf && service mysql start
+RUN mkdir -p /data/mysql_data
+RUN sed -i "s,datadir.*=.*,datadir=/data/mysql_data,g" /etc/mysql/my.cnf
 
 #
 # Clones the rpi-climate-monitor software and builds it

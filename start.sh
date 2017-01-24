@@ -1,7 +1,7 @@
 #!/bin/sh
 # Start MySQL
-#echo 'restarting MySQL';
-#service mysql restart;
+echo 'restarting MySQL';
+service mysql restart;
 #service ssh restart;
 
 # Create database and table
