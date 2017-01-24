@@ -11,8 +11,12 @@ RUN apt-get -y install build-essential && apt-get -y install git && apt-get -y i
 RUN git clone https://github.com/WiringPi/WiringPi.git && cd WiringPi && ./build
 RUN apt-get install cron
 
+RUN useradd rpi-climate-monitor -U
+USER rpi-climate-monitor -U
 RUN mkdir -p /data
 RUN mkdir -p /data/mysql_data
+RUN chmod +x /data
+
 RUN sed -i "s,datadir.*=.*,datadir=/data/mysql_data,g" /etc/mysql/my.cnf
 
 #
