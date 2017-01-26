@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <wiringPi.h>
 #include <time.h>
 #include <maxdetect.h>
