@@ -1,0 +1,35 @@
+version: '2'
+services:
+  rpi-climate-monitor:
+    build: ./rpi-climate-monitor-measurer
+    container_name: rpi-climate-monitor-measurer
+    links:
+      - db
+    depends_on:
+      - db
+    entrypoint: /bin/bash
+    environment:
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: 123456
+      MYSQL_DATABASE: Monitoring   
+  webserver:
+    image: richarvey/nginx-php-fpm:latest
+    container_name: rpi-climate-monitor-webserver
+    links:
+      - db
+    depends_on:
+      - db
+    ports:
+      - "8000:80"
+  db:
+    image: mysql
+    container_name: rpi-climate-monitor-db
+    ports:
+      - "3306:3306"
+    volumes: 
+      - ./init:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: root_pass
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: 123456
+      MYSQL_DATABASE: Monitoring

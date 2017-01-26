@@ -6,9 +6,9 @@ service mysql restart;
 
 # Create database and table
 echo 'creating database';
-echo "create database if not exists Monitoring;" | mysql -u root;
+echo "create database if not exists $MYSQL_DATABASE;" | mysql -u root;
 echo 'creating table';
-echo "use Monitoring; create table if not exists TempHumid (ComputerTime TIMESTAMP,Temperature DECIMAL(5,1), Humidity DECIMAL(5,1))"  | mysql -u root;
+echo "use $MYSQL_DATABASE; create table if not exists TempHumid (ComputerTime TIMESTAMP,Temperature DECIMAL(5,1), Humidity DECIMAL(5,1))"  | mysql -u root;
 
 # Watch mysql error logs
 #tail -f /var/log/mysql/error.log;
