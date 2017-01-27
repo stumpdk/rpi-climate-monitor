@@ -20,15 +20,16 @@ void databaseError(MYSQL *con, char SQLstring[64])
 
 MYSQL* connectToDatabase()
 {	
-	char sqlServer[64];
-	char username[64]; 
-	char password[64]; 
-	char databaseName[64]; 
+	char* sqlServer;
+	char* username; 
+	char* password; 
+	char* databaseName; 
 	
-	sqlServer = "db";
 	username = getenv("MYSQL_USER");
 	password = getenv("MYSQL_PASSWORD");
 	databaseName = = getenv("MYSQL_DATABASE");
+	sqlServer = "db";
+
 
 	MYSQL *con = mysql_init(NULL);
 	
