@@ -27,7 +27,7 @@ MYSQL* connectToDatabase()
 	
 	username = getenv("MYSQL_USER");
 	password = getenv("MYSQL_PASSWORD");
-	databaseName = = getenv("MYSQL_DATABASE");
+	databaseName = getenv("MYSQL_DATABASE");
 	sqlServer = "db";
 
 
