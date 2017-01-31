@@ -20,6 +20,7 @@ services:
       - db
     ports:
       - "8000:80"
+    privileged: true
   db:
     image: hypriot/rpi-mysql
     container_name: rpi-climate-monitor-db
