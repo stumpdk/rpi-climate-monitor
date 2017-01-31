@@ -7,6 +7,10 @@ rpi-climate-monitor uses Docker to easily setup a simple climate monitor for you
 Install Docker:
 ```sudo curl -sSL get.docker.com | sh``` or ```sudo curl -sSLk get.docker.com | sh``` if the first command gives a certificate error (insecure)
 
+Install Docker Compose
+```sudo apt-get -y install python-pip
+sudo pip install docker-compose```
+
 Clone this repository:
 ```git clone https://github.com/stumpdk/rpi-climate-monitor```
 
