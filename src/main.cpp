@@ -81,7 +81,12 @@ int main(void)
 	piHiPri(55);
 
 	//Read temperature and humidity
-	readRHT03(RHT03_PIN, &temp, &rh);
+	status = readRHT03(RHT03_PIN, &temp, &rh);
+
+	if(!status)
+	{
+		writeLog("could not get status");
+	}
 
 	//If no status is returned, 
 	//while ((!status))
@@ -96,7 +101,7 @@ int main(void)
 	timeinfo = localtime(&rawtime);
 	strftime(TimeString, 64, "%x %X", timeinfo);
 
-	printf("Time: %s, Temperature: %5.1f, Humidity: %5.1f\n", TimeString, (temp), (rh));
+	printf("Time: %s, Temperature: %5.1f, Humidity: %5.1f\n", TimeString, temp, rh);
 
 	//Put the data in the log file
 	writeLog(TimeString);
