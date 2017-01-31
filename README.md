@@ -13,11 +13,8 @@ Install Docker Compose
 Clone this repository:
 ```git clone https://github.com/stumpdk/rpi-climate-monitor```
 
-Build the Docker image:
-```cd rpi-climate-monitor && sudo docker build -t rpi-climate-monitor .```
-
 Start the containers:
-```docker-compose up```
+```cd rpi-climate-monitor && docker-compose up```
 
 Now the monitor measures and puts data into the database every minute.
 
