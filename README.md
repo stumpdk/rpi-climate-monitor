@@ -16,9 +16,8 @@ Clone this repository:
 Build the Docker image:
 ```cd rpi-climate-monitor && sudo docker build -t rpi-climate-monitor .```
 
-Start the container:
-```sudo docker run -d --name rpi-climate-monitor -p 8000:80 -p 2222:22 rpi-climate-monitor-container```
-```sudo docker run -d --entrypoint=/bin/bash --name rpi-climate-monitor -p 8000:80 -p 2222:22 rpi-climate-monitor-container resin/rpi-raspbian:jessie```
+Start the containers:
+```docker-compose up```
 
 Now the monitor measures and puts data into the database every minute.
 
