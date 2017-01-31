@@ -101,7 +101,7 @@ int main(void)
 	timeinfo = localtime(&rawtime);
 	strftime(TimeString, 64, "%x %X", timeinfo);
 
-	printf("Time: %s, Temperature: %5.1f, Humidity: %5.1f\n", TimeString, temp, rh);
+	printf("Time: %s, Temperature: %5.1f, Humidity: %5.1f\n", TimeString, temp / 10.0, rh / 10.0);
 
 	//Put the data in the log file
 	writeLog(TimeString);
