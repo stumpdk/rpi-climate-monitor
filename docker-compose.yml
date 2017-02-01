@@ -7,7 +7,7 @@ services:
       - db
     depends_on:
       - db
-    cap-add:
+    cap_add:
       - SYS_RAWIO
     devices:
       - /dev/mem
