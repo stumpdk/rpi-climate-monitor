@@ -1,5 +1,5 @@
 SOURCEDIR = /
-SOURCES = /main.cpp 
+SOURCES = main_no_db.cpp 
 #:= $(shell find $(SOURCEDIR) -regex ".*\.\(c\)")
 EXECUTABLE = /performMeasurement
 INCLUDE	= -I/usr/local/include,/usr/include/mysql
