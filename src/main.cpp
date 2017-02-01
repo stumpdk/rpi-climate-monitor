@@ -86,6 +86,7 @@ int main(void)
 	if(!status)
 	{
 		writeLog("could not get status");
+		return 1;
 	}
 
 	//If no status is returned, 

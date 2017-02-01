@@ -7,7 +7,10 @@ services:
       - db
     depends_on:
       - db
-    privileged: true
+    cap-add:
+      - SYS_RAWIO
+    devices:
+      - /dev/mem
     environment:
       MYSQL_USER: dev
       MYSQL_PASSWORD: 123456
