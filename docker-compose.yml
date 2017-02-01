@@ -1,6 +1,6 @@
 version: '2'
 services:
-  rpi-climate-monitor:
+  rpi-climate-monitor-measurer:
     build: ./rpi-climate-monitor-measurer
     container_name: rpi-climate-monitor-measurer
     links:
