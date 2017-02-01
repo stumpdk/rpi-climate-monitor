@@ -10,7 +10,8 @@ services:
     cap_add:
       - SYS_RAWIO
     devices:
-      - /dev/mem
+      - /dev/ttyAMA0:/dev/ttyAMA0
+      - /dev/mem:/dev/mem
     environment:
       MYSQL_USER: dev
       MYSQL_PASSWORD: 123456
