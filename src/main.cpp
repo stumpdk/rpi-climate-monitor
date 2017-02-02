@@ -76,26 +76,25 @@ int main(void)
 
 	writeLog("started");
 
-	wiringPiSetupSys();
+	wiringPiSetup();
 
 	piHiPri(55);
 
 	//Read temperature and humidity
 	status = readRHT03(RHT03_PIN, &temp, &rh);
 
-	if(!status)
+	//If no status is returned, 
+	while ((!status && numOfRetries < 10))
 	{
-		writeLog("could not get status");
-		return 1;
+		delay(500);
+		status = readRHT03(RHT03_PIN, &temp, &rh);
+		numOfRetries++;
 	}
 
-	//If no status is returned, 
-	//while ((!status))
-	//{
-//		delay(3000);
-//		status = readRHT03(RHT03_PIN, &temp, &rh);
-//	}
-
+	if(numOfRetries == 9)
+	{
+		return;
+	}
 
 	//Get current, local, formatted time
 	time(&rawtime);
