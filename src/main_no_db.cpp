@@ -48,7 +48,7 @@ int main(void)
 	//If no status is returned, 
 	while ((!status && numOfRetries < 10))
 	{
-		delay(500);
+		delay(100);
 		status = readRHT03(RHT03_PIN, &temp, &rh);
 		numOfRetries++;
 	}
