@@ -84,7 +84,7 @@ int main(void)
 	int numOfRetries = 0;
 	time_t rawtime;
 	struct tm * timeinfo;
-	char TimeString[64];
+	char timeString[64];
 	char statusMessage[128];
 	char SQLstring[64];
 
@@ -114,12 +114,12 @@ int main(void)
 	//Get current, local, formatted time
 	time(&rawtime);
 	timeinfo = localtime(&rawtime);
-	strftime(TimeString, 64, "%x %X", timeinfo);
+	strftime(timeString, 64, "%x %X", timeinfo);
 
-	statusMessage = printf("Time: %s, Temperature: %5.1f, Humidity: %5.1f\n", TimeString, temp / 10.0, rh / 10.0);
+	printf("Time: %s, Temperature: %5.1f, Humidity: %5.1f\n", timeString, temp / 10.0, rh / 10.0);
 
 	//Put the data in the log file
-	writeLog(statusMessage);
+	writeLog(timeString);
 
 	//Save the information using MySQL
 	sprintf(SQLstring, "INSERT INTO measurings (`temperature`, `humidity`) VALUES('%5.1f','%5.1f')", (temp / 10.0), (rh / 10.0));
