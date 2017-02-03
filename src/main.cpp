@@ -94,7 +94,7 @@ int main(void)
 
 	if(numOfRetries == 9)
 	{
-		return;
+		return 0;
 	}
 
 	//Get current, local, formatted time
