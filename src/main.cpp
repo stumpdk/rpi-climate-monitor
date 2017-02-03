@@ -64,7 +64,7 @@ bool writeLog(const char *text)
 	//Outout for debugging purposes
 	printf(text);
 
-	FILE *f = fopen("/data/rpi-climate-monitor.log", "w");
+	FILE *f = fopen("/data/rpi-climate-monitor.log", "a");
 	if (f == NULL)
 	{
 	    printf("Error opening file!\n");
