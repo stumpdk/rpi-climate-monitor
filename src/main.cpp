@@ -85,7 +85,6 @@ int main(void)
 	time_t rawtime;
 	struct tm * timeinfo;
 	char timeString[64];
-	char statusMessage[128];
 	char SQLstring[64];
 
 	writeLog("started");
