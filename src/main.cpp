@@ -70,6 +70,7 @@ int main(void)
 {
 	static int RHT03_PIN = 7;
 	int temp, rh, status = 0;
+	int numOfRetries = 0;
 	time_t rawtime;
 	struct tm * timeinfo;
 	char TimeString[64];
