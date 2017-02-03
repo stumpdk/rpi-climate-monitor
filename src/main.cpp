@@ -12,7 +12,7 @@
 // update the Property Pages - Build Events - Remote Post-Build Event command 
 // which uses gpio export for setup for wiringPiSetupSys
 
-void databaseError(MYSQL *con, char SQLstring[64])
+void databaseError(MYSQL *con, const char SQLstring[64])
 {
 	fprintf(stderr, "%s : %s\n", mysql_error(con), SQLstring);
 	mysql_close(con);
@@ -20,7 +20,7 @@ void databaseError(MYSQL *con, char SQLstring[64])
 
 MYSQL* connectToDatabase()
 {	
-	char* sqlServer;
+	const char* sqlServer;
 	char* username; 
 	char* password; 
 	char* databaseName; 
@@ -41,8 +41,15 @@ MYSQL* connectToDatabase()
 	return con;
 }
 
-bool runQuery(MYSQL *con, char SQLstring[64])
+bool runQuery(char SQLstring[64])
 {
+	MYSQL *con = connectToDatabase();
+
+	if(con == NULL)
+	{
+		return false;
+	}
+
 	if (mysql_query(con, SQLstring)){
 		databaseError(con, SQLstring);
 		return false;
@@ -51,8 +58,12 @@ bool runQuery(MYSQL *con, char SQLstring[64])
 	return true;
 }
 
-bool writeLog(char *text)
+bool writeLog(const char *text)
 {
+
+	//Outout for debugging purposes
+	printf(text);
+
 	FILE *f = fopen("/data/rpi-climate-monitor.log", "w");
 	if (f == NULL)
 	{
@@ -74,6 +85,8 @@ int main(void)
 	time_t rawtime;
 	struct tm * timeinfo;
 	char TimeString[64];
+	char statusMessage[128];
+	char SQLstring[64];
 
 	writeLog("started");
 
@@ -85,15 +98,16 @@ int main(void)
 	status = readRHT03(RHT03_PIN, &temp, &rh);
 
 	//If no status is returned, 
-	while ((!status && numOfRetries < 10))
+	while ((!status || (temp / 10.0 == 0.0 && rh / 10.0 == 0.0)) && numOfRetries < 11)
 	{
-		delay(100);
+		delay(200);
 		status = readRHT03(RHT03_PIN, &temp, &rh);
 		numOfRetries++;
 	}
 
-	if(numOfRetries == 9)
+	if(!status)
 	{
+		writeLog("could not get status after 10 retries");
 		return 0;
 	}
 
@@ -102,24 +116,16 @@ int main(void)
 	timeinfo = localtime(&rawtime);
 	strftime(TimeString, 64, "%x %X", timeinfo);
 
-	printf("Time: %s, Temperature: %5.1f, Humidity: %5.1f\n", TimeString, temp / 10.0, rh / 10.0);
+	statusMessage = printf("Time: %s, Temperature: %5.1f, Humidity: %5.1f\n", TimeString, temp / 10.0, rh / 10.0);
 
 	//Put the data in the log file
-	writeLog(TimeString);
+	writeLog(statusMessage);
 
 	//Save the information using MySQL
-	char SQLstring[64];
 	sprintf(SQLstring, "INSERT INTO measurings (`temperature`, `humidity`) VALUES('%5.1f','%5.1f')", (temp / 10.0), (rh / 10.0));
 
-	MYSQL *con = connectToDatabase();
-
-	if(con == NULL)
-	{
-		return 0;
-	}
-
-	if(!runQuery(con, SQLstring)){
-		return 0;
+	if(!runQuery(SQLstring)){
+		writeLog("could not execute query");
 	}
 
 	return 0;
