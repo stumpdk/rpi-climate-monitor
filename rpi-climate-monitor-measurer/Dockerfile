@@ -21,11 +21,13 @@ RUN git clone https://github.com/stumpdk/rpi-climate-monitor  /data/rpi-climate-
 # set cron job that performs the measuring
 #
 RUN crontab /data/rpi-climate-monitor/crontab
+RUN touch /data/rpi-climate-monitor.log
 
 #
 # ENTRYPOINT that initializes database and table
 #
-ENTRYPOINT ["/bin/sh", "/data/rpi-climate-monitor/start.sh"]
+CMD cron && tail -f /data/rpi-climate-monitor.log
+#ENTRYPOINT ["/bin/sh", "/data/rpi-climate-monitor/start.sh"]
 
 VOLUME /data
 
