@@ -108,7 +108,7 @@ int main(void)
 
 	//Save the information using MySQL
 	char SQLstring[64];
-	sprintf(SQLstring, "INSERT INTO TempHumid (`Temperature`, `Humidity`) VALUES('%5.1f','%5.1f')", (temp / 10.0), (rh / 10.0));
+	sprintf(SQLstring, "INSERT INTO measurings (`temperature`, `humidity`) VALUES('%5.1f','%5.1f')", (temp / 10.0), (rh / 10.0));
 
 	MYSQL *con = connectToDatabase();
 

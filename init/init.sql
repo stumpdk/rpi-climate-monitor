@@ -1,3 +1,2 @@
-create database if not exists Monitoring;
-use Monitoring;
-create table if not exists TempHumid (ComputerTime TIMESTAMP,Temperature DECIMAL(5,1), Humidity DECIMAL(5,1));
+create database if not exists `measurings`;
+create table if not exists `measurings`.`measurings` (`time` TIMESTAMP,`temperature` DECIMAL(5,1), `humidity` DECIMAL(5,1));
