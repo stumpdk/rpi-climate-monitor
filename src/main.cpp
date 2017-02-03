@@ -97,7 +97,7 @@ int main(void)
 	status = readRHT03(RHT03_PIN, &temp, &rh);
 
 	//If no status is returned, 
-	while ((!status || (temp / 10.0 == 0.0 && rh / 10.0 == 0.0)) && numOfRetries < 11)
+	while ((!status || (temp / 10.0 == 0.0 && rh / 10.0 == 0.0)))
 	{
 		delay(200);
 		status = readRHT03(RHT03_PIN, &temp, &rh);
