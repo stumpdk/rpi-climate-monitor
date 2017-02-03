@@ -15,7 +15,7 @@ services:
     environment:
       MYSQL_USER: dev
       MYSQL_PASSWORD: 123456
-      MYSQL_DATABASE: Monitoring   
+      MYSQL_DATABASE: measurings   
   webserver:
     image: lispmeister/rpi-nginx
     container_name: rpi-climate-monitor-webserver
@@ -32,8 +32,9 @@ services:
       - "3306:3306"
     volumes: 
       - ./init:/docker-entrypoint-initdb.d
+      - /var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root_pass
       MYSQL_USER: dev
       MYSQL_PASSWORD: 123456
-      MYSQL_DATABASE: Monitoring
+      MYSQL_DATABASE: measurings
