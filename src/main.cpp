@@ -121,10 +121,11 @@ int main(void)
 	writeLog(timeString);
 
 	//Save the information using MySQL
-	sprintf(SQLstring, "INSERT INTO measurings (`temperature`, `humidity`) VALUES('%5.1f','%5.1f')", (temp / 10.0), (rh / 10.0));
+	sprintf(SQLstring, "INSERT INTO measurings (`temperature`, `humidity`) VALUES('%5.1f','%5.1f');", (temp / 10.0), (rh / 10.0));
 
 	if(!runQuery(SQLstring)){
 		writeLog("could not execute query");
+		writeLog(SQLstring);
 	}
 
 	return 0;
