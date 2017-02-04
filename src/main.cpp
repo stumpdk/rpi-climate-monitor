@@ -12,9 +12,29 @@
 // update the Property Pages - Build Events - Remote Post-Build Event command 
 // which uses gpio export for setup for wiringPiSetupSys
 
+bool writeLog(const char *text)
+{
+	//Outout for debugging purposes
+	printf(text);
+
+	FILE *f = fopen("/data/rpi-climate-monitor.log", "a");
+	if (f == NULL)
+	{
+	    printf("Error opening file!\n");
+	    return false;
+	}
+
+	/* print some text */
+	fprintf(f, "%s\n", text);
+
+	return true;
+}
+
 void databaseError(MYSQL *con, const char SQLstring[64])
 {
-	writeLog(sprintf("Could not execute query: %s : %s\n", mysql_error(con), SQLstring))
+	char* status = NULL;
+	sprintf(status, "Could not execute query: %s : %s\n", mysql_error(con), SQLstring);
+	writeLog(status);
 	mysql_close(con);
 }
 
@@ -58,25 +78,6 @@ bool runQuery(char SQLstring[64])
 	return true;
 }
 
-bool writeLog(const char *text)
-{
-
-	//Outout for debugging purposes
-	printf(text);
-
-	FILE *f = fopen("/data/rpi-climate-monitor.log", "a");
-	if (f == NULL)
-	{
-	    printf("Error opening file!\n");
-	    return false;
-	}
-
-	/* print some text */
-	fprintf(f, "%s\n", text);
-
-	return true;
-}
-
 int main(void)
 {
 	static int RHT03_PIN = 7;
@@ -86,6 +87,7 @@ int main(void)
 	struct tm * timeinfo;
 	char timeString[64];
 	char SQLstring[64];
+	char* readings = NULL;
 
 	writeLog("started");
 
@@ -116,14 +118,13 @@ int main(void)
 	strftime(timeString, 64, "%x %X", timeinfo);
 
 	//Put the data in the log file
-	writeLog(sprintf("Time: %s, Temperature: %5.1f, Humidity: %5.1f\n", timeString, temp / 10.0, rh / 10.0));
+	sprintf(readings, "Time: %s, Temperature: %5.1f, Humidity: %5.1f\n", timeString, temp / 10.0, rh / 10.0);
+	writeLog(readings);
 
 	//Save the information using MySQL
-	SQLstring = sprintf("INSERT INTO measurings (`temperature`, `humidity`) VALUES('%5.1f','%5.1f');", (temp / 10.0), (rh / 10.0));
+	sprintf(SQLstring, "INSERT INTO measurings (`temperature`, `humidity`) VALUES('%5.1f','%5.1f');", (temp / 10.0), (rh / 10.0));
 
-	if(!runQuery(SQLstring)){
-		databaseError();
-	}
+	runQuery(SQLstring);
 
 	return 0;
 }
