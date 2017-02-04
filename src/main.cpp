@@ -14,7 +14,7 @@
 
 void databaseError(MYSQL *con, const char SQLstring[64])
 {
-	fprintf(stderr, "%s : %s\n", mysql_error(con), SQLstring);
+	writeLog(sprintf("Could not execute query: %s : %s\n", mysql_error(con), SQLstring))
 	mysql_close(con);
 }
 
@@ -115,17 +115,14 @@ int main(void)
 	timeinfo = localtime(&rawtime);
 	strftime(timeString, 64, "%x %X", timeinfo);
 
-	printf("Time: %s, Temperature: %5.1f, Humidity: %5.1f\n", timeString, temp / 10.0, rh / 10.0);
-
 	//Put the data in the log file
-	writeLog(timeString);
+	writeLog(sprintf("Time: %s, Temperature: %5.1f, Humidity: %5.1f\n", timeString, temp / 10.0, rh / 10.0));
 
 	//Save the information using MySQL
-	sprintf(SQLstring, "INSERT INTO measurings (`temperature`, `humidity`) VALUES('%5.1f','%5.1f');", (temp / 10.0), (rh / 10.0));
+	SQLstring = sprintf("INSERT INTO measurings (`temperature`, `humidity`) VALUES('%5.1f','%5.1f');", (temp / 10.0), (rh / 10.0));
 
 	if(!runQuery(SQLstring)){
-		writeLog("could not execute query");
-		writeLog(SQLstring);
+		databaseError();
 	}
 
 	return 0;
