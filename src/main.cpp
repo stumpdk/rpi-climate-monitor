@@ -6,6 +6,8 @@
 #include <mysql/mysql.h>
 #include <iostream>
 
+#define BUF_SIZE 256
+
 // LED Pin - wiringPi pin 0 is BCM_GPIO 17.
 // we have to use BCM numbering when initializing with wiringPiSetupSys
 // when choosing a different pin number please use the BCM numbering, also
@@ -85,9 +87,9 @@ int main(void)
 	int numOfRetries = 0;
 	time_t rawtime;
 	struct tm * timeinfo;
-	char timeString[64];
-	char SQLstring[64];
-	char* readings = NULL;
+	char timeString[BUF_SIZE];
+	char SQLstring[BUF_SIZE];
+	char readings[BUF_SIZE];
 
 	writeLog("started");
 
