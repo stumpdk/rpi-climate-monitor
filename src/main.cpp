@@ -34,7 +34,7 @@ bool writeLog(const char *text)
 
 void databaseError(MYSQL *con, const char SQLstring[64])
 {
-	char* status = NULL;
+	char status[BUF_SIZE];
 	sprintf(status, "Could not execute query: %s : %s\n", mysql_error(con), SQLstring);
 	writeLog(status);
 	mysql_close(con);
