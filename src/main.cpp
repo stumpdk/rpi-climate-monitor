@@ -90,13 +90,13 @@ int main(void)
 	char timeString[BUF_SIZE];
 	char SQLstring[BUF_SIZE];
 	char readings[BUF_SIZE];
-printf("started1");
+
 	writeLog("started");
 
 	wiringPiSetup();
 
 	piHiPri(55);
-printf("started2");
+
 	//Read temperature and humidity
 	status = readRHT03(RHT03_PIN, &temp, &rh);
 
@@ -107,7 +107,7 @@ printf("started2");
 		status = readRHT03(RHT03_PIN, &temp, &rh);
 		numOfRetries++;
 	}
-printf("started3");
+
 	if(!status)
 	{
 		writeLog("could not get status after 10 retries");
@@ -118,14 +118,14 @@ printf("started3");
 	time(&rawtime);
 	timeinfo = localtime(&rawtime);
 	strftime(timeString, 64, "%x %X", timeinfo);
-printf("started4");
+
 	//Put the data in the log file
 	sprintf(readings, "Time: %s, Temperature: %5.1f, Humidity: %5.1f\n", timeString, temp / 10.0, rh / 10.0);
 	writeLog(readings);
 
 	//Save the information using MySQL
 	sprintf(SQLstring, "INSERT INTO measurings (`temperature`, `humidity`) VALUES('%5.1f','%5.1f');", (temp / 10.0), (rh / 10.0));
-printf("started5");
+
 	runQuery(SQLstring);
 
 	return 0;
