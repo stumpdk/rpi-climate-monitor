@@ -1,3 +1,5 @@
+[mysqld]
+
 innodb_buffer_pool_size=5M
 innodb_log_buffer_size=256K
 query_cache_size=0

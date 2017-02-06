@@ -26,14 +26,12 @@ services:
     ports:
       - "8000:80"
   db:
-    image: hypriot/rpi-mysql
+    build: ./rpi-climate-monitor-measurer
     container_name: rpi-climate-monitor-db
     ports:
       - "3306:3306"
     volumes: 
-      - ./init:/docker-entrypoint-initdb.d
       - /var/lib/mysql/
-      - ./conf/mysql:/etc/mysql/conf.d
     environment:
       MYSQL_ROOT_PASSWORD: root_pass
       MYSQL_USER: dev
