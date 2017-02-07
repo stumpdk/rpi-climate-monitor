@@ -32,6 +32,7 @@ services:
       - "3306:3306"
     volumes: 
       - /var/lib/mysql/
+      - ./rpi-climate-monitor-db/init.sql:/docker-entrypoint-initdb.d
     environment:
       MYSQL_ROOT_PASSWORD: root_pass
       MYSQL_USER: dev
