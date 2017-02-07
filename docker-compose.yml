@@ -26,7 +26,7 @@ services:
     ports:
       - "8000:80"
   db:
-    build: ./rpi-climate-monitor-measurer
+    build: ./rpi-climate-monitor-db
     container_name: rpi-climate-monitor-db
     ports:
       - "3306:3306"
