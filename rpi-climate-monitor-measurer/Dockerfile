@@ -8,14 +8,20 @@ RUN apt-get update -y
 RUN apt-get -y install build-essential && apt-get -y install git && apt-get -y install libmysqlclient-dev
 RUN git clone https://github.com/WiringPi/WiringPi.git && cd WiringPi && ./build
 RUN apt-get install cron
+RUN apt-get install sqlite3
 
 RUN mkdir -p /data
+
+
+#init the database
+RUN sqlite3 /data/measurings.db
+RUN sqlite3 /data/measurings.db << "create table if not exists measurings (time TIMESTAMP DEFAULT NOW, temperature DECIMAL(5,1) NOT NULL, humidity DECIMAL(5,1) NOT NULL)"
 
 #
 # Clones the rpi-climate-monitor software and builds it
 #
 
-RUN git clone https://github.com/stumpdk/rpi-climate-monitor        /data/rpi-climate-monitor && cd /data/rpi-climate-monitor && git checkout docker-compose && cd ./src && make 
+RUN git clone https://github.com/stumpdk/rpi-climate-monitor                 /data/rpi-climate-monitor && cd /data/rpi-climate-monitor && git checkout docker-compose && cd ./src && make 
 
 #
 # set cron job that performs the measuring

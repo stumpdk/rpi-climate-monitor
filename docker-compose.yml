@@ -13,9 +13,9 @@ services:
       - /dev/ttyAMA0:/dev/ttyAMA0
       - /dev/mem:/dev/mem
     environment:
-      MYSQL_USER: dev
-      MYSQL_PASSWORD: 123456
-      MYSQL_DATABASE: measurings   
+      DB_USER: dev
+      DB_PASSWORD: 123456
+      DB_LOCATION: /data/measurings.db   
   webserver:
     image: lispmeister/rpi-nginx
     container_name: rpi-climate-monitor-webserver
@@ -25,16 +25,7 @@ services:
       - db
     ports:
       - "8000:80"
-  db:
-    build: ./rpi-climate-monitor-db
-    container_name: rpi-climate-monitor-db
-    ports:
-      - "3306:3306"
-    volumes: 
-      - /var/lib/mysql/
-      - ./rpi-climate-monitor-db/init.sql:/docker-entrypoint-initdb.d
     environment:
-      MYSQL_ROOT_PASSWORD: root_pass
-      MYSQL_USER: dev
-      MYSQL_PASSWORD: 123456
-      MYSQL_DATABASE: measurings
+      DB_USER: dev
+      DB_PASSWORD: 123456
+      DB_LOCATION: /data/measurings.db 

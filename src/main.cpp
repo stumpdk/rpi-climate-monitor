@@ -3,8 +3,10 @@
 #include <wiringPi.h>
 #include <time.h>
 #include <maxdetect.h>
-#include <mysql/mysql.h>
 #include <iostream>
+extern "C" {
+#include </data/src/sqlite3.h>
+}
 
 #define BUF_SIZE 256
 
@@ -32,30 +34,26 @@ bool writeLog(const char *text)
 	return true;
 }
 
-void databaseError(MYSQL *con, const char SQLstring[64])
+void databaseError(sqlite3 *con, const char SQLstring[64])
 {
 	char status[BUF_SIZE];
-	sprintf(status, "Could not execute query: %s : %s\n", mysql_error(con), SQLstring);
+	sprintf(status, "Could not execute query: %s : %s\n", sqlite3_errmsg(con), SQLstring);
 	writeLog(status);
-	mysql_close(con);
+	sqlite3_close(con);
 }
 
-MYSQL* connectToDatabase()
+sqlite3* connectToDatabase()
 {	
-	const char* sqlServer;
-	char* username; 
-	char* password; 
 	char* databaseName; 
 	
-	username = getenv("MYSQL_USER");
-	password = getenv("MYSQL_PASSWORD");
-	databaseName = getenv("MYSQL_DATABASE");
-	sqlServer = "db";
+	databaseName = getenv("DB_LOCATION");
+	int rc;
 
-
-	MYSQL *con = mysql_init(NULL);
+	sqlite3 *con;
 	
-	if (mysql_real_connect(con, sqlServer, username, password, databaseName, 0, NULL, 0) == NULL){
+	rc = sqlite3_open(databaseName, &con); 
+
+	if (rc){
 		databaseError(con, "");
 		return NULL;	
 	} 
@@ -65,14 +63,15 @@ MYSQL* connectToDatabase()
 
 bool runQuery(char SQLstring[64])
 {
-	MYSQL *con = connectToDatabase();
+	sqlite3 *con = connectToDatabase();
 
 	if(con == NULL)
 	{
+
 		return false;
 	}
 
-	if (mysql_query(con, SQLstring)){
+	if (sqlite3_exec(con, SQLstring, NULL, NULL, NULL)){
 		databaseError(con, SQLstring);
 		return false;
 	}
