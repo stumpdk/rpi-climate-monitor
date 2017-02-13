@@ -21,7 +21,7 @@ RUN sqlite3 /data/measurings.db << "create table if not exists measurings (time 
 # Clones the rpi-climate-monitor software and builds it
 #
 
-RUN git clone https://github.com/stumpdk/rpi-climate-monitor                 /data/rpi-climate-monitor && cd /data/rpi-climate-monitor && git checkout sqlite3 && cd ./src && make 
+RUN git clone https://github.com/stumpdk/rpi-climate-monitor /data/rpi-climate-monitor && cd /data/rpi-climate-monitor && git checkout sqlite3 && cd ./src && make 
 
 #
 # set cron job that performs the measuring
@@ -41,6 +41,3 @@ CMD cron && tail -f /data/rpi-climate-monitor.log
 #ENTRYPOINT ["/bin/sh", "/data/rpi-climate-monitor/start.sh"]
 
 VOLUME /data
-
-# enable http
-EXPOSE 80

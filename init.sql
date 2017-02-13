@@ -1,0 +1,1 @@
+create table if not exists `measurings` (`time` TIMESTAMP,`temperature` DECIMAL(5,1), `humidity` DECIMAL(5,1));
