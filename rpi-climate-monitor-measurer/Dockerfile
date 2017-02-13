@@ -15,7 +15,7 @@ RUN mkdir -p /data
 
 #init the database
 RUN sqlite3 /data/measurings.db
-RUN sqlite3 /data/measurings.db << "create table if not exists measurings (time TIMESTAMP DEFAULT NOW, temperature DECIMAL(5,1) NOT NULL, humidity DECIMAL(5,1) NOT NULL)"
+RUN sqlite3 /data/measurings.db < /data/init.sql
 
 #
 # Clones the rpi-climate-monitor software and builds it
