@@ -12,16 +12,15 @@ RUN apt-get install sqlite3
 
 RUN mkdir -p /data
 
-
-#init the database
-RUN sqlite3 /data/measurings.db
-RUN sqlite3 /data/measurings.db < /data/rpi-climate-monitor/init.sql
-
 #
 # Clones the rpi-climate-monitor software and builds it
 #
 
 RUN git clone https://github.com/stumpdk/rpi-climate-monitor /data/rpi-climate-monitor && cd /data/rpi-climate-monitor && git checkout sqlite3 && cd ./src && make 
+
+#init the database
+RUN sqlite3 /data/measurings.db
+RUN sqlite3 /data/measurings.db < /data/rpi-climate-monitor/rpi-climate-monitor-measurer/init.sql
 
 #
 # set cron job that performs the measuring
