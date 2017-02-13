@@ -15,7 +15,7 @@ RUN mkdir -p /data
 
 #init the database
 RUN sqlite3 /data/measurings.db
-RUN sqlite3 /data/measurings.db < /data/init.sql
+RUN sqlite3 /data/measurings.db < /data/rpi-climate-monitor/init.sql
 
 #
 # Clones the rpi-climate-monitor software and builds it
