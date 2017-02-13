@@ -5,7 +5,7 @@
 #include <maxdetect.h>
 #include <iostream>
 extern "C" {
-#include </data/src/sqlite3.h>
+#include </data/rpi-climate-monitor/src/sqlite3.h>
 }
 
 #define BUF_SIZE 256
