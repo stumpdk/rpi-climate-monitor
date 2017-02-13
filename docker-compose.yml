@@ -3,10 +3,6 @@ services:
   rpi-climate-monitor-measurer:
     build: ./rpi-climate-monitor-measurer
     container_name: rpi-climate-monitor-measurer
-    links:
-      - db
-    depends_on:
-      - db
     cap_add:
       - SYS_RAWIO
     devices:
