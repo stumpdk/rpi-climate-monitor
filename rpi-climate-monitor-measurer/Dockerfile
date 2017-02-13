@@ -16,7 +16,7 @@ RUN mkdir -p /data
 # Clones the rpi-climate-monitor software and builds it
 #
 
-RUN git clone https://github.com/stumpdk/rpi-climate-monitor /data/rpi-climate-monitor && cd /data/rpi-climate-monitor && git checkout sqlite3 && && cd ./rpi-climate-monitor-measurer && cd ./src && make 
+RUN git clone https://github.com/stumpdk/rpi-climate-monitor /data/rpi-climate-monitor && cd /data/rpi-climate-monitor && git checkout sqlite3 && cd ./rpi-climate-monitor-measurer && cd ./src && make 
 
 #init the database
 RUN sqlite3 /data/measurings.db
