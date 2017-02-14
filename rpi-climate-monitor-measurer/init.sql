@@ -1,5 +1,5 @@
 create table measurings (
-	ID INT PRIMARY KEY NOT NULL,
+	id INT PRIMARY KEY,
 	time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	temperature DECIMAL(5,1), 
 	humidity DECIMAL(5,1)
