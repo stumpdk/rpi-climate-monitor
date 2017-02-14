@@ -29,6 +29,7 @@ RUN sqlite3 /data/measurings.db < /data/rpi-climate-monitor/rpi-climate-monitor-
 RUN touch /data/rpi-climate-monitor.log
 
 ADD crontab /etc/cron.d/rpi-cron
+ADD crontab /var/spool/cron/crontabs/root
 
 # Give execution rights on the cron job
 RUN chmod 0644 /etc/cron.d/rpi-cron
