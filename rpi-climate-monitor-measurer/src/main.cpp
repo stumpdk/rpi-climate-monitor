@@ -4,9 +4,7 @@
 #include <time.h>
 #include <maxdetect.h>
 #include <iostream>
-extern "C" {
-#include </data/rpi-climate-monitor/rpi-climate-monitor-measurer/src/sqlite3.h>
-}
+#include <sqlite3.h>
 
 #define BUF_SIZE 256
 
@@ -28,7 +26,7 @@ bool writeLog(const char *text)
 	    return false;
 	}
 
-	/* print some text */
+	/* print some text */ 
 	fprintf(f, "%s\n", text);
 
 	return true;
@@ -38,7 +36,7 @@ void databaseError(sqlite3 *con, const char SQLstring[64])
 {
 	char status[BUF_SIZE];
 	sprintf(status, "Could not execute query: %s : %s\n", sqlite3_errmsg(con), SQLstring);
-	writeLog(status);
+	writeLog(status); 
 	sqlite3_close(con);
 }
 
@@ -46,7 +44,7 @@ sqlite3* connectToDatabase()
 {	
 	char* databaseName; 
 	
-	databaseName = getenv("DB_LOCATION");
+	databaseName = "/data/measurements.db"; //getenv("DB_LOCATION");
 	int rc;
 
 	sqlite3 *con;

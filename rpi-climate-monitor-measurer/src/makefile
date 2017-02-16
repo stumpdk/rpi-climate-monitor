@@ -1,10 +1,10 @@
 SOURCEDIR = /
-SOURCES = ./main.cpp ./sqlite3.o
+SOURCES = ./main.cpp
 #:= $(shell find $(SOURCEDIR) -regex ".*\.\(c\)")
-EXECUTABLE = /data/performMeasurement
-INCLUDE	= -I/usr/local/include
-LDFLAGS	= -L/usr/local/lib,/usr/lib/arm-linux-gnueabihf
-LDLIBS = -lwiringPi -lwiringPiDev -lpthread -lm -lpthread -lrt -ldl
+EXECUTABLE = ./performMeasurement
+#INCLUDE	= -I
+#LDFLAGS	= -L/usr/local/lib,/usr/lib/arm-linux-gnueabihf
+LDLIBS = -lwiringPi -lwiringPiDev -lpthread -lm -lpthread -lrt -ldl -lsqlite3
 
 all: climate_measurement
 
