@@ -24,3 +24,9 @@ Now the monitor measures and puts data into the database every minute.
 Not yet supported. But it should work as above, as long as the dependencies used in the Dockerfile (MySQL and wiringPi among others) are installed manually, before building the monitor executable.
 
 The build is done by cloning this repository, entering the src dir and build the file with ```make```
+
+## Development and debugging##
+To run the measurer:
+**Start the bin/bash of the measurer by starting Docker: docker run -it --name rpi_b -v /c/users/stumpdk/documents/github/rpi-climate-monitor:/data rpi_builder . This will start the Docker container
+**Go to measurer folder and run node ./node_modules/gulp/bin/gulp.js. This will build and run the executable on changes in main.cpp
+** 

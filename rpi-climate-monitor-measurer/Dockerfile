@@ -8,7 +8,7 @@ RUN apt-get update -y
 RUN apt-get -y install build-essential && apt-get -y install git && apt-get -y install libmysqlclient-dev
 RUN git clone https://github.com/WiringPi/WiringPi.git && cd WiringPi && ./build
 RUN apt-get install cron
-RUN apt-get install sqlite3
+RUN apt-get install sqlite3 && apt-get install -y libsqlite3-dev
 
 RUN mkdir -p /data
 
